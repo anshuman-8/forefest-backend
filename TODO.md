@@ -1,0 +1,1 @@
+- add option for event Readme

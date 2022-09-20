@@ -2,4 +2,4 @@
 import './src';
 
 
-// npm i express apollo-server-express graphql bcryptjs consola dotenv jsonwebtoken mongoose esm
+// npm i express apollo-server-express graphql bcryptjs consola dotenv jsonwebtoken mongoose esm mongoose-paginate-v2

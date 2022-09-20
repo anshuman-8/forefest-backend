@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import { PORT, DB, mode } from './config';
 import { ApolloServer } from "apollo-server-express";
 import {success, error} from 'consola';
+import * as AppModels from "./models";
 import { resolvers, typeDefs } from "./graphql";
 
 const startServer = async()=>{
@@ -15,10 +16,11 @@ const startServer = async()=>{
         resolvers,
         // schemaDirectives,
         playground: mode,
-        // context: ({ req }) => {
+        context: ({ req }) => {
         //   let { isAuth, user } = req;
         //   return { req, isAuth, user, ...AppModels };
-        // },
+            return { ...AppModels };
+        },
       });
 
 
@@ -31,7 +33,7 @@ const startServer = async()=>{
         await apolloServer.start();
 
         await apolloServer.applyMiddleware({ app });
-        
+
         app.listen({ port: PORT }, () =>
             success({
             message: `Server started at http://localhost:${PORT}`,
