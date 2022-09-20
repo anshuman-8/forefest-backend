@@ -1,0 +1,24 @@
+{
+  "name": "forefest-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anshuman-8/forefest-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anshuman-8/forefest-backend/issues"
+  },
+  "homepage": "https://github.com/anshuman-8/forefest-backend#readme",
+  "dependencies": {
+    "apollo-server-express": "^3.10.2",
+    "bcryptjs": "^2.4.3",
+    "express": "^4.18.1"
+  }
+}
