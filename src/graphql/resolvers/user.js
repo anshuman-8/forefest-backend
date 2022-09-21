@@ -8,28 +8,27 @@ export default {
         hello: () => {return ('Hello World')}
     },
     Mutation: {
-        working: (parent, args, context, info) => {
-            return `Working ${args.txt}`;
-        },
 
         registerNewUser: async (parent, args, context, info) => {
             try{
                 const { name, email, password} = args.user;
-            const { User } = context;
+                console.log(args.user);
+                const User = context.user;
 
             // const { errors, valid } = registerNewUserVadidator(args.user);
             // if (!valid) {
             //     throw new ApolloError(errors);
             // }
             
-            const user = await User.findOne({ email });
+            let user= await User.findOne({where: {email} });
             if (user) {
                 throw new ApolloError("User already exists");
             }
+
             user = new User(args.user);
 
             const salt = await genSaltSync(10);
-            const hashedPassword = await hash(password, salt);
+            user.password = await hash(password, salt);
 
             let result = await user.save();
 
@@ -49,6 +48,7 @@ export default {
 
             console.log({token,User:result})
             return {token,user:result};
+
             }catch(err){
                 throw new ApolloError(err);
             }

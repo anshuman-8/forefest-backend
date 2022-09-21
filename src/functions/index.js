@@ -8,4 +8,4 @@ export const issueToken=async (user)=> {
     return `Bearer ${token}`;
 };
 
-export const serializeUser = user => pick(user,['id','name','last_Name','avatarImage']);
+export const serializeUser = user => pick(user,['id','name','email','avatarImage']);

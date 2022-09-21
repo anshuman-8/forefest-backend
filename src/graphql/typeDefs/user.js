@@ -4,6 +4,9 @@ export default gql`
     
     extend type Query{
         hello:String!
+        user(id:ID!):UserCard!
+        users:[UserCard!]!
+        authUser:User!
     }
 
     extend type Mutation{
@@ -32,8 +35,8 @@ export default gql`
     type UserCard{
         id:ID!
         name:String!
-        password:String
         avatar:String!
+        bio:String
     }
 
     type AuthResp{
@@ -44,7 +47,7 @@ export default gql`
     input UserInput{
         email:String!
         password:String!
-        name:String
+        name:String!
         avatar:String
         bio:String
         gender:String
