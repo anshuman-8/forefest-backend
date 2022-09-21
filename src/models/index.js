@@ -1,11 +1,11 @@
-import event from './event';
-import user from './user';
-import org from './org';
-import location from './location';
+import Event from './event';
+import User from './user';
+import Org from './org';
+import Location from './location';
 
 export {
-    event,
-    user,
-    org,
-    location
+    Event,
+    User,
+    Org,
+    Location
 };

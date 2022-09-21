@@ -4,15 +4,16 @@ export default gql`
     
     extend type Query{
         hello:String!
-        user(id:ID!):UserCard!
-        users:[UserCard!]!
+        user(id:ID!):User!
+        users:[User!]!
         authUser:User!
+        loginUser(email: String!, password: String!): AuthResp!
     }
 
     extend type Mutation{
         working(txt:Int!):String!
         registerNewUser(user: UserInput!): AuthResp!
-        loginUser(user: UserInput!): User!
+        updateUser(id:ID!,user: UserInput!): UserCard! # for bio, avatar, name, phoneno, gender, age, location, organisation, events, likes, eventRegisted
     }
 
     type User{
@@ -22,14 +23,15 @@ export default gql`
         password:String
         avatar:String
         bio:String
-        gender:String
+        gender:String 
         age:Int
         location:String
         phone:String
-        organisation:String!
-        events:[String]
-        likes:[String]
-        eventRegisted:[String]
+        organisation:[Org!]
+        events:[Org!]
+        likes:[Event]
+        eventRegisted:[Event]
+        following:[Org]
     }
 
     type UserCard{

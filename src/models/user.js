@@ -25,6 +25,12 @@ const userSchema = new Schema({
     required: false,
     default: null,
   },
+  following: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "org",
+    },
+  ],
   bio: {
     type: String,
     required: false,
@@ -39,11 +45,11 @@ const userSchema = new Schema({
     required: false,
     default: null,
   },
-  organisation: {
-    type: [Schema.Types.ObjectId],
+  organisation: [{
+    type: Schema.Types.ObjectId,
     ref: "organisation",
     default: null,
-  },
+  }],
   events: [
     {
       type: Schema.Types.ObjectId,

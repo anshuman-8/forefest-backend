@@ -7,6 +7,6 @@ export default gql`
     }
 
     type Mutation{
-        working(txt:Int!):String!
+        working:String!
     }
 `;

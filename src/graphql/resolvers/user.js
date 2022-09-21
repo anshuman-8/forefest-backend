@@ -1,26 +1,70 @@
 import { hash, genSaltSync, compare } from 'bcryptjs';
 import { ApolloError } from "apollo-server-express";
 import { issueToken, serializeUser } from '../../functions';
-// import {loginUserValidator,registerNewUserVadidator} from '../../validators';
+import {userLoginValidator,userRegisterValidator} from '../../validator';
 
 export default {
     Query: {
-        hello: () => {return ('Hello World')}
+        hello: () => {return ('Hello World')},
+
+
+        user: async (parent, args, { User }) => {
+            const {id} = args;
+            return await User.findById(id);
+        },
+
+
+        users: async (parent, args, { User },info) => {
+            return await User.find();
+        },
+
+
+        loginUser: async (parent, args, {User}, info) => {
+            try{
+                const { email, password } = args;
+
+                userLoginValidator.validate({email:email,password:password},);
+               
+
+                let user = await User.findOne({email} );
+                if (!user) {
+                    throw new ApolloError("User not found");
+                }
+
+                const match = await compare(password, user.password);
+                if (!match) {
+                    throw new ApolloError("Invalid password");
+                }
+
+                user = user.toObject();
+                user.id = user._id;
+
+                user = serializeUser(user);
+
+                let token = await issueToken(user);
+
+                return {token,user};
+
+            }catch(err){
+                throw new ApolloError(err);
+            }
+        }
     },
     Mutation: {
+        
+        working: () => {
+            return ('Working  hard for your fest!!');
+        },
 
-        registerNewUser: async (parent, args, context, info) => {
+
+        registerNewUser: async (parent, args, { User }, info) => {
             try{
-                const { name, email, password} = args.user;
-                console.log(args.user);
-                const User = context.user;
-
-            // const { errors, valid } = registerNewUserVadidator(args.user);
-            // if (!valid) {
-            //     throw new ApolloError(errors);
-            // }
+                const { name, email, password, avatar, bio} = args.user;
+               
+            userRegisterValidator.validate({email:email,password:password,name:name,bio:bio,avatar:avatar},{abortEarly:false});
             
-            let user= await User.findOne({where: {email} });
+            
+            let user= await User.findOne({email});
             if (user) {
                 throw new ApolloError("User already exists");
             }
@@ -38,22 +82,15 @@ export default {
             result=serializeUser(result);
 
             let token = await issueToken(result);
-            // const newUser = new User({
-            //     name,
-            //     email,
-            //     password: hashedPassword,
-            // });
-            // const res = await newUser.save();
-            // const token = issueToken(res);
 
-            console.log({token,User:result})
+            // console.log({token,User:result})
             return {token,user:result};
 
             }catch(err){
                 throw new ApolloError(err);
             }
             
-            
         },
+
     }
 };
