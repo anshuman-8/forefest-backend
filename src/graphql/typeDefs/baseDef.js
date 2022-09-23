@@ -9,4 +9,9 @@ export default gql`
     type Mutation{
         working:String!
     }
+
+    type Everyone{
+        user: User!
+        org: Org!
+    }
 `;

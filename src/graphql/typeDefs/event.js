@@ -9,11 +9,11 @@ export default gql`
     }
 
     extend type Mutation{
-        working(txt:Int!):String!
+
         addEvent(event:EventInput!):Event!
         updateEvent(id:ID!,event:EventInput!):Event!
         deleteEvent(id:ID!):Event!
-        registerEvent(id:ID!):User!
+        registerEvent(eventID:ID!, userID: ID!):User!
     }
 
     type Event{

@@ -31,7 +31,13 @@ const userSchema = new Schema({
       ref: "org",
     },
   ],
-  bio: {
+  followers: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+    }
+  ],
+    bio: {
     type: String,
     required: false,
     default: null,
