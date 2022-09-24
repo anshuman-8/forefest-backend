@@ -9,6 +9,7 @@ const AuthMiddleware = async (req, res, next) => {
 
     if (!authHeader) {
         req.isAuth = false;
+        req.user=null;
         return next();
     };
 
@@ -16,6 +17,7 @@ const AuthMiddleware = async (req, res, next) => {
 
     if (!token || token === "") {
         req.isAuth = false;
+        req.user=null;
         return next();
     };
 

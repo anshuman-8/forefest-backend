@@ -11,7 +11,7 @@ const eventSchema = new Schema({
   },
   banner: {
     type: String,
-    required: true,
+    required: false,
   },
   createdAt: {
     type: Date,

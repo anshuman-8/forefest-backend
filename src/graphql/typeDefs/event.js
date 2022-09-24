@@ -10,19 +10,22 @@ export default gql`
 
     extend type Mutation{
 
-        addEvent(event:EventInput!):Event!
+        createEvent(event:EventInput!):Event!
         updateEvent(id:ID!,event:EventInput!):Event!
         deleteEvent(id:ID!):Event!
-        registerEvent(eventID:ID!, userID: ID!):User!
+        registerEvent(eventID:ID!):User!
     }
 
     type Event{
         id:ID!
-        name:String!
+        title:String!
         description:String!
+        banner:String
+        createdAt:String
         date:String!
         time:String!
         venue:String!
+        price:Int!
         category:String!
         tags:[String]
         likes:Int
