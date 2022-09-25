@@ -1,50 +1,51 @@
-import {gql} from 'apollo-server-express';
+import { gql } from "apollo-server-express";
 
 export default gql`
+  # extend type Query{
+  #     # hello:String!
+  #     # event(id:ID!):Event!
+  #     # events:[Event!]!
+  # }
 
-    extend type Query{
-        hello:String!
-        event(id:ID!):Event!
-        events:[Event!]!
-    }
+  extend type Mutation {
+    createEvent(event: EventInput!): newRegister!
+    # updateEvent(id:ID!,event:EventInput!):Event!
+    # deleteEvent(id:ID!):Event!
+    registerEvent(eventID: ID!): User!
+  }
 
-    extend type Mutation{
+  type Event {
+    id: ID!
+    title: String!
+    description: String!
+    banner: String
+    createdAt: String
+    date: String!
+    dateTime: String!
+    venue: String!
+    price: Int!
+    category: String!
+    tags: [String]
+    likes: Int
+    comments: [Comment]
+  }
 
-        createEvent(event:EventInput!):Event!
-        updateEvent(id:ID!,event:EventInput!):Event!
-        deleteEvent(id:ID!):Event!
-        registerEvent(eventID:ID!):User!
-    }
+  input EventInput {
+    title: String!
+    description: String!
+    date: String!
+    dateTime: String
+    venue: String!
+    category: String!
+    price: Int!
+    tags: [String]
+  }
 
-    type Event{
-        id:ID!
-        title:String!
-        description:String!
-        banner:String
-        createdAt:String
-        date:String!
-        time:String!
-        venue:String!
-        price:Int!
-        category:String!
-        tags:[String]
-        likes:Int
-        comments:[Comment]
-    }
+  type newRegister {
+    user: User!
+    event: Event!
+    time: String!
+  }
 
-    input EventInput{
-        name:String!
-        description:String!
-        date:String!
-        time:String!
-        venue:String!
-        category:String!
-        tags:[String]
-    }
-
-    type newRegister{
-        user:User!
-        event:Event!
-        time:String!
-    }
+  
 `;

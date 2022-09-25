@@ -3,7 +3,7 @@ import { SECRET } from "../config";
 import { verify } from "jsonwebtoken";
 
 const AuthMiddleware = async (req, res, next) => {
-    console.log("Auth header: ",req.headers.authorization,"\n\n")
+    // console.log("Auth header: ",req.headers.authorization,"\n\n")
 
     const authHeader = req.headers.authorization;
 

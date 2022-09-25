@@ -48,6 +48,19 @@ export default {
             }catch(err){
                 throw new ApolloError(err);
             }
+        },
+
+        authUser: async (parent, args, {user, isAuth}, info) => {
+            try{
+                if(!isAuth || user===null){
+                    throw new ApolloError("User not logged in");
+                }
+
+                return user;
+
+            }catch(err){
+                throw new ApolloError(err);
+            }
         }
     },
     Mutation: {

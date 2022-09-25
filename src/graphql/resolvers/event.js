@@ -2,31 +2,33 @@ import { ApolloError } from "apollo-server-express";
 
 export default {
 
-  Query: {
+  // Query: {
 
-  },
+  // },
   Mutation: {
 
-    createEvent: async (parent, args, { models, user }) => {
+    createEvent: async (parent, args, { Event, user, isAuth }) => {
         try {
-            const { name, description, location, date, time, category, price,  } = args;
-            const event = await models.Event.create({
-                name,
+            const { title, description, location, date, category, price,  } = args.event;
+            if (!isAuth || user === null) {
+                throw new ApolloError("user not logged in");
+            }
+            const eventDate=new Date();
+            const dateTime=eventDate;   // has to be removed later for demo only
+            const event = await Event.create({
+                title,
                 description,
                 location,
-                date,
-                time,
-                category,
+                // category,
+                eventDate,
+                dateTime,
                 price,
                 creator: user.id
             });
-            const creator = await models.User.findById(user.id);
-            if (!creator) {
-                throw new ApolloError("User not found");
-            }
-            creator.createdEvents.push(event);
-            await creator.save();
-            return event;
+            user.events.push(event);
+            await user.save();
+            const time=new Date().toISOString();
+            return {user,event,time};
         } catch (err) {
             throw new ApolloError(err);
         }
