@@ -9,6 +9,7 @@ export default gql`
 
   extend type Mutation {
     createEvent(event: EventInput!): newRegister!
+    likeAnEvent(eventID: ID!): User!
     # updateEvent(id:ID!,event:EventInput!):Event!
     # deleteEvent(id:ID!):Event!
     registerEvent(eventID: ID!): User!

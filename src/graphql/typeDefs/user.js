@@ -29,7 +29,7 @@ export default gql`
         location:String
         phone:String
         organisation:[Org!]
-        events:[Org!]
+        events:[Event!]
         likes:[Event]
         eventRegisted:[Event]
         following:[Everyone]

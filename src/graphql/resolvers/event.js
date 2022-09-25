@@ -34,6 +34,24 @@ export default {
         }
     },
 
+    likeAnEvent: async (parent, args, { Event, user, isAuth }, info) => {
+      try{
+        const { eventID } = args;
+        if(!isAuth && user===null){
+            throw new ApolloError("user not logged in");
+        } 
+        const event = await Event.findById(eventID);
+        user.likes.push(event)
+        event.likes.push(user);
+        await user.save()
+        await event.save();
+        return user;
+
+      }catch(err){
+        throw new ApolloError(err);
+      }
+    },
+
     registerEvent : async (parent, args, { Event, user, isAuth }, info) => {
       try{
         const { eventID } = args;

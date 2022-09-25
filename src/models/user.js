@@ -10,6 +10,11 @@ const userSchema = new Schema({
     required: true,
     unique:true
   },
+  isOrg: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
   avatar: {
     type: String,
     required: false,
@@ -28,7 +33,7 @@ const userSchema = new Schema({
   following: [
     {
       type: Schema.Types.ObjectId,
-      ref: "org",
+      ref: "user",
     },
   ],
   followers: [
