@@ -23,6 +23,7 @@ export default {
         }
     }
   },
+
   Mutation: {
 
     createEvent: async (parent, args, { Event, user, isAuth }) => {
@@ -47,8 +48,8 @@ export default {
             });
             user.events.push(event);
             await user.save();
-            const time=new Date().toISOString();
-            return {user,event,time};
+            // const time=new Date().toISOString();
+            return {user,event};
         } catch (err) {
             throw new ApolloError(err);
         }
@@ -65,9 +66,28 @@ export default {
         event.likes.push(user);
         await user.save()
         await event.save();
-        const time=new Date().toISOString();
-        return {user,event,time};
+        // const time=new Date().toISOString();
+        return {user,event};
 
+      }catch(err){
+        throw new ApolloError(err);
+      }
+    },
+
+    unlikeAnEvent: async (parent, args, { Event, user, isAuth }, info) => {
+      try{
+        const { eventID } = args;
+        if(!isAuth && user===null){
+            throw new ApolloError("user not logged in");
+        } 
+        const event = await Event.findById(eventID);
+        user.likes.pull(event)
+        event.likes.pull(user);
+        await user.save()
+        await event.save();
+        // const time=new Date().toISOString();
+
+        return {user,event};
       }catch(err){
         throw new ApolloError(err);
       }
@@ -98,8 +118,8 @@ export default {
         await event.save();
         await user.save();
 
-        const time=new Date().toISOString();
-        return {user,event,time};
+        // const time=new Date().toISOString();
+        return {user,event};
       }catch(err){
         throw new ApolloError(err);
       }
@@ -123,8 +143,8 @@ export default {
         event.comments.push(comment);
         await event.save();
         await comment.save();
-        const time=createdAt;
-        return {user,event,time};
+        // const time=createdAt;
+        return {user,event};
       }catch(err){
         throw new ApolloError(err);
       }

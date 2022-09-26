@@ -8,12 +8,13 @@ export default gql`
   }
 
   extend type Mutation {
-    createEvent(event: EventInput!): newRegister!
-    likeAnEvent(eventID: ID!): newRegister!
+    createEvent(event: EventInput!): eventResponse!
+    likeAnEvent(eventID: ID!): eventResponse
+    unlikeAnEvent(eventID: ID!): eventResponse
     # updateEvent(id:ID!,event:EventInput!):Event!
     # deleteEvent(id:ID!):Event!
-    commentOnEvent(eventID: ID!, text: String!): newRegister!
-    registerEvent(eventID: ID!): newRegister!
+    commentOnEvent(eventID: ID!, text: String!): eventResponse!
+    registerEvent(eventID: ID!): eventResponse!
   }
 
   type Event {
@@ -47,10 +48,9 @@ export default gql`
     registrationLimit: Int!
   }
 
-  type newRegister {
+  type eventResponse {
     user: User!
     event: Event!
-    time: String!
   }
   
   type Comment { 
