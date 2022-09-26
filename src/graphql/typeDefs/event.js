@@ -12,6 +12,7 @@ export default gql`
     likeAnEvent(eventID: ID!): newRegister!
     # updateEvent(id:ID!,event:EventInput!):Event!
     # deleteEvent(id:ID!):Event!
+    commentOnEvent(eventID: ID!, text: String!): newRegister!
     registerEvent(eventID: ID!): newRegister!
   }
 
@@ -29,7 +30,7 @@ export default gql`
     category: String!
     tags: [String]
     likes: [User]
-    comments: [Comment]
+    comments: [Comment!]
     registrations: [User!]
     registrationLimit: Int!
   }
@@ -51,6 +52,12 @@ export default gql`
     event: Event!
     time: String!
   }
-
+  
+  type Comment { 
+    text: String!
+    createdAt: String!
+    user: User!
+    event: Event!
+  }
   
 `;

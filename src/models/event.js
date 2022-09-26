@@ -120,6 +120,12 @@ const eventSchema = new Schema({
     type: String,
     required: false,
   },
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "comment",
+    },
+  ],
 });
 
 const Event = model("event", eventSchema);

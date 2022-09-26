@@ -39,7 +39,6 @@ export default {
                 description,
                 location,
                 // category,
-                // host,
                 eventDate,
                 dateTime,
                 price,
@@ -100,6 +99,31 @@ export default {
         await user.save();
 
         const time=new Date().toISOString();
+        return {user,event,time};
+      }catch(err){
+        throw new ApolloError(err);
+      }
+    },
+
+    commentOnEvent: async (parent, args, { Event,Comment, user, isAuth }, info) => {
+      try{
+        const { eventID, text } = args;
+        if(!isAuth && user===null){
+            throw new ApolloError("user not logged in");
+        }
+        const event = await Event.findById(eventID);
+        const createdAt=new Date().toISOString();
+       
+        const comment = await Comment.create({
+          text,
+          user,
+          event,
+          createdAt
+        });
+        event.comments.push(comment);
+        await event.save();
+        await comment.save();
+        const time=createdAt;
         return {user,event,time};
       }catch(err){
         throw new ApolloError(err);

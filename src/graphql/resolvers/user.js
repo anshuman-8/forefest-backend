@@ -105,16 +105,5 @@ export default {
             
         },
 
-        registerEvent: async (parent, args, { User }, info)=>{
-            try{
-                const eventId=args.eventID;
-                
-
-            }catch(err){
-
-            }
-
-        }
-
     }
 };
