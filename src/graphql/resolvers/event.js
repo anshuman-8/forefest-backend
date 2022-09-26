@@ -2,28 +2,49 @@ import { ApolloError } from "apollo-server-express";
 
 export default {
 
-  // Query: {
+  Query: {
 
-  // },
+    events: async (parent, args, { Event }, info) => {
+        try {
+            const events = await Event.find().populate("creator").populate("registrations").populate("likes");
+            return events;
+        } catch (err) {
+            throw new ApolloError(err);
+        }
+    },
+
+    event: async (parent, args, { Event }, info) => {
+        try {
+            const { eventID } = args;
+            const event = await Event.findById(eventID).populate("creator").populate("registrations").populate("likes");
+            return event;
+        } catch (err) {
+            throw new ApolloError(err);
+        }
+    }
+  },
   Mutation: {
 
     createEvent: async (parent, args, { Event, user, isAuth }) => {
         try {
-            const { title, description, location, date, category, price,  } = args.event;
+            const { title, description, location, date, category, price, registrationLimit  } = args.event;
             if (!isAuth || user === null) {
                 throw new ApolloError("user not logged in");
             }
             const eventDate=new Date();
             const dateTime=eventDate;   // has to be removed later for demo only
+            // const host=user;
             const event = await Event.create({
                 title,
                 description,
                 location,
                 // category,
+                // host,
                 eventDate,
                 dateTime,
                 price,
-                creator: user.id
+                registrationLimit,
+                creator: user
             });
             user.events.push(event);
             await user.save();

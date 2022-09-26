@@ -1,11 +1,11 @@
 import { gql } from "apollo-server-express";
 
 export default gql`
-  # extend type Query{
-  #     # hello:String!
-  #     # event(id:ID!):Event!
-  #     # events:[Event!]!
-  # }
+  extend type Query{
+      # hello:String!
+      event(eventID:ID!):Event!
+      events:[Event!]!
+  }
 
   extend type Mutation {
     createEvent(event: EventInput!): newRegister!
@@ -21,13 +21,14 @@ export default gql`
     description: String!
     banner: String
     createdAt: String
+    creator: User!
     date: String!
     dateTime: String!
     venue: String!
     price: Int!
     category: String!
     tags: [String]
-    likes: Int
+    likes: [User]
     comments: [Comment]
     registrations: [User!]
     registrationLimit: Int!
