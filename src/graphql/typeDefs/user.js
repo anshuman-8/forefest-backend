@@ -14,7 +14,6 @@ export default gql`
         working(txt:Int!):String!
         registerNewUser(user: UserInput!): AuthResp!
         updateUser(id:ID!,user: UserInput!): UserCard! # for bio, avatar, name, phoneno, gender, age, location, organisation, events, likes, eventRegisted
-        # registerEvent(eventID:ID!):[Event]!
     }
 
     type User{
@@ -26,6 +25,7 @@ export default gql`
         bio:String
         gender:String 
         age:Int
+        isOrg:Boolean
         location:String
         phone:String
         organisation:[Org!]

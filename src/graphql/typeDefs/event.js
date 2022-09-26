@@ -9,10 +9,10 @@ export default gql`
 
   extend type Mutation {
     createEvent(event: EventInput!): newRegister!
-    likeAnEvent(eventID: ID!): User!
+    likeAnEvent(eventID: ID!): newRegister!
     # updateEvent(id:ID!,event:EventInput!):Event!
     # deleteEvent(id:ID!):Event!
-    registerEvent(eventID: ID!): User!
+    registerEvent(eventID: ID!): newRegister!
   }
 
   type Event {
@@ -29,6 +29,8 @@ export default gql`
     tags: [String]
     likes: Int
     comments: [Comment]
+    registrations: [User!]
+    registrationLimit: Int!
   }
 
   input EventInput {
@@ -40,6 +42,7 @@ export default gql`
     category: String!
     price: Int!
     tags: [String]
+    registrationLimit: Int!
   }
 
   type newRegister {

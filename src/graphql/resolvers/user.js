@@ -5,7 +5,7 @@ import {userLoginValidator,userRegisterValidator} from '../../validator';
 
 export default {
     Query: {
-        hello: () => {return ('Hello World')},
+        hello: () => {return ('Hello User is working')},
 
 
         user: async (parent, args, { User }) => {

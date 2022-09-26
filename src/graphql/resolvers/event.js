@@ -45,7 +45,8 @@ export default {
         event.likes.push(user);
         await user.save()
         await event.save();
-        return user;
+        const time=new Date().toISOString();
+        return {user,event,time};
 
       }catch(err){
         throw new ApolloError(err);
@@ -64,21 +65,21 @@ export default {
           throw new ApolloError("Event not found");
         }
 
-        // const user = await User.findById(userID);
-        // if(!user){
-        //   throw new ApolloError("User not found");
-        // }
-
+        console.log(event.registrations.includes(user.id))
         if(event.registrationLimit<=event.registrations.length){
             throw new ApolloError("Registration limit exceeded");
         }
+        if(event.registrations.includes(user.id)){
+            throw new ApolloError("User has already registered");
+        }
         event.registrations.push(user);
-        user.event.push(eventRegisted)
+        user.eventRegisted.push(event)
 
         await event.save();
-        user.save();
+        await user.save();
 
-        return event;
+        const time=new Date().toISOString();
+        return {user,event,time};
       }catch(err){
         throw new ApolloError(err);
       }

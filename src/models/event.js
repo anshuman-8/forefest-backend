@@ -104,7 +104,7 @@ const eventSchema = new Schema({
   },
   registrationLimit: {
     type: Number,
-    required: false,
+    required: true,
   },
   sponsor: {
     // type: Schema.Types.ObjectId,
