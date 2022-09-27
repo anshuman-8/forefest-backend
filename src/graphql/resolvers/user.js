@@ -58,7 +58,6 @@ export default {
                 }
                 // user=user.populate('events').populate('eventRegisted').populate('eventLiked');
                 user=await User.findById(user).populate('events').populate('eventRegisted').populate('events').populate('likes').populate('following').populate('followers');
-                console.log(user.eventRegisted);
                 return user;
 
             }catch(err){

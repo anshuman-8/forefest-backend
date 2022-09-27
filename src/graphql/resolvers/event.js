@@ -176,13 +176,14 @@ export default {
       }
     },
 
-    deleteEvent: async (parent, args, { Event, user, isAuth }, info) => {
+    deleteEvent: async (parent, args, { Event, user,User, isAuth }, info) => {
       try{
         const { eventID } = args;
         if(!isAuth && user===null){
             throw new ApolloError("user not logged in");
         }
-        const event = await Event.findById(eventID);
+        const event = await Event.findById(eventID).populate("creator");
+        // user = await User.findById(user).populate('eventRegisted').populate('likes').populate('events');
         if(!event){
           throw new ApolloError("Event not found");
         }

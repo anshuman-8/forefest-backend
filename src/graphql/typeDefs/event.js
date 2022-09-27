@@ -12,7 +12,7 @@ export default gql`
     likeAnEvent(eventID: ID!): eventResponse
     unlikeAnEvent(eventID: ID!): eventResponse
     # updateEvent(id:ID!,event:EventInput!):Event!
-    deleteEvent(id:ID!):Event!
+    deleteEvent(eventID:ID!):Event!
     unregisterEvent(eventID: ID!): eventResponse!
     commentOnEvent(eventID: ID!, text: String!): Comment
     registerEvent(eventID: ID!): eventResponse!
