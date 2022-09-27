@@ -2,6 +2,7 @@ import { hash, genSaltSync, compare } from 'bcryptjs';
 import { ApolloError } from "apollo-server-express";
 import { issueToken, serializeUser } from '../../functions';
 import {userLoginValidator,userRegisterValidator} from '../../validator';
+// import { User } from '../../models';
 
 export default {
     Query: {
@@ -10,12 +11,12 @@ export default {
 
         user: async (parent, args, { User }) => {
             const {id} = args;
-            return await User.findById(id);
+            return await User.findById(id).populate('events').populate('eventRegisted').populate('events').populate('likes').populate('following').populate('followers');
         },
 
 
         users: async (parent, args, { User },info) => {
-            return await User.find();
+            return await User.find().populate('following').populate('followers');
         },
 
 
@@ -50,12 +51,14 @@ export default {
             }
         },
 
-        authUser: async (parent, args, {user, isAuth}, info) => {
+        authUser: async (parent, args, {user,User, isAuth}, info) => {
             try{
                 if(!isAuth || user===null){
                     throw new ApolloError("User not logged in");
                 }
-
+                // user=user.populate('events').populate('eventRegisted').populate('eventLiked');
+                user=await User.findById(user).populate('events').populate('eventRegisted').populate('events').populate('likes').populate('following').populate('followers');
+                console.log(user.eventRegisted);
                 return user;
 
             }catch(err){
@@ -80,6 +83,9 @@ export default {
             let user= await User.findOne({email});
             if (user) {
                 throw new ApolloError("User already exists");
+            }
+            if(avatar===null){
+                avatar=`//https://robohash.org/${email}`
             }
 
             user = new User(args.user);

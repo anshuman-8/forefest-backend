@@ -12,8 +12,9 @@ export default gql`
     likeAnEvent(eventID: ID!): eventResponse
     unlikeAnEvent(eventID: ID!): eventResponse
     # updateEvent(id:ID!,event:EventInput!):Event!
-    # deleteEvent(id:ID!):Event!
-    commentOnEvent(eventID: ID!, text: String!): eventResponse!
+    deleteEvent(id:ID!):Event!
+    unregisterEvent(eventID: ID!): eventResponse!
+    commentOnEvent(eventID: ID!, text: String!): Comment
     registerEvent(eventID: ID!): eventResponse!
   }
 
@@ -43,22 +44,22 @@ export default gql`
   }
 
   type Event {
-    id: ID!
-    title: String!
-    description: String!
+    id: ID
+    title: String
+    description: String
     banner: String
     createdAt: String
-    creator: User!
-    dateTime: String!
-    venue: String!
-    price: Int!
+    creator: User
+    dateTime: String
+    # location: String!
+    price: Int
     location: String
-    category: categoryType!
+    category: categoryType
     tags: [String]
     likes: [User]
     comments: [Comment!]
     registrations: [User!]
-    registrationLimit: Int!
+    registrationLimit: Int
   }
 
   input EventInput {

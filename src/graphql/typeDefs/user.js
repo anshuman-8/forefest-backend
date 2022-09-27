@@ -6,7 +6,7 @@ export default gql`
         hello:String!
         user(id:ID!):User!
         users:[User!]!
-        authUser:User!
+        authUser:User
         loginUser(email: String!, password: String!): AuthResp!
     }
 
@@ -18,9 +18,9 @@ export default gql`
 
     type User{
         id:ID!
-        name:String!
-        email:String!
-        password:String
+        name:String
+        email:String
+        # password:String
         avatar:String
         bio:String
         gender:String 
@@ -29,8 +29,8 @@ export default gql`
         location:String
         organisation:[Org!]
         events:[Event!]
-        likes:[Event]
-        eventRegisted:[Event]
+        likes:[Event!]
+        eventRegisted:[Event!]
         following:[Everyone]
         followers:[User!]
         phone:String
