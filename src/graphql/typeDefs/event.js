@@ -17,6 +17,31 @@ export default gql`
     registerEvent(eventID: ID!): eventResponse!
   }
 
+  enum categoryType{
+    virtualMeetup
+    liveMeetup
+    party
+    discussion
+    science
+    technology
+    arts
+    music
+    sports
+    health
+    food
+    travel
+    photography
+    business
+    finance
+    marketing
+    entrepreneurship
+    career
+    spirituality
+    history
+    culture
+    other
+  }
+
   type Event {
     id: ID!
     title: String!
@@ -24,11 +49,11 @@ export default gql`
     banner: String
     createdAt: String
     creator: User!
-    date: String!
     dateTime: String!
     venue: String!
     price: Int!
-    category: String!
+    location: String
+    category: categoryType!
     tags: [String]
     likes: [User]
     comments: [Comment!]
@@ -39,10 +64,10 @@ export default gql`
   input EventInput {
     title: String!
     description: String!
-    date: String!
     dateTime: String
     venue: String!
-    category: String!
+    location: String
+    category: categoryType!
     price: Int!
     tags: [String]
     registrationLimit: Int!

@@ -19,11 +19,11 @@ const eventSchema = new Schema({
   },
   price: {
     type: Number,
-    required: true,
+    required: false,
   },
   dateTime: {
     type: Date,
-    required: true,
+    required: false,
   },
   tags: {
     type: [String],
@@ -46,17 +46,23 @@ const eventSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "organisation",
   },
-  eventDate: {
-    type: Date,
-    required: true,
-  },
+  // eventDate: {
+  //   type: Date,
+  //   required: false,
+  // },
   location: {
-    type: Schema.Types.ObjectId,
-    ref: "location",
+    // type: Schema.Types.ObjectId,
+    // ref: "location",
+    type: String,
+    required: false,
   },
   category: {
-    type: Schema.Types.ObjectId,
-    ref: "category",
+    // type: Schema.Types.ObjectId,
+    type: String,
+    // enum : ['','virtual'],
+    // default: 'user'
+    required: false,
+    // ref: "category",
   },
   registrations: [
     {

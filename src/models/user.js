@@ -83,8 +83,10 @@ const userSchema = new Schema({
     },
   ],
   location: {
-    type: Schema.Types.ObjectId,
-    ref: "location",
+    // type: Schema.Types.ObjectId,
+    // ref: "location",
+    type: String,
+    required: false,
     default: null,
   },
 });

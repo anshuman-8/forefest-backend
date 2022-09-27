@@ -27,13 +27,13 @@ export default gql`
         age:Int
         isOrg:Boolean
         location:String
-        phone:String
         organisation:[Org!]
         events:[Event!]
         likes:[Event]
         eventRegisted:[Event]
         following:[Everyone]
         followers:[User!]
+        phone:String
     }
 
     type UserCard{
@@ -41,6 +41,14 @@ export default gql`
         name:String!
         avatar:String!
         bio:String
+    }
+
+    enum GenderType{
+        MALE
+        FEMALE
+        TRANS
+        NONE
+        OTHERS
     }
 
     type AuthResp{
@@ -54,8 +62,10 @@ export default gql`
         name:String!
         avatar:String
         bio:String
-        gender:String
+        gender: GenderType
         age:Int
         location:String
+        phone:String
+        isOrg:Boolean
     }
 `;
