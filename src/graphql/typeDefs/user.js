@@ -13,7 +13,7 @@ export default gql`
     extend type Mutation{
         working(txt:Int!):String!
         registerNewUser(user: UserInput!): AuthResp!
-        updateUser(id:ID!,user: UserInput!): UserCard! # for bio, avatar, name, phoneno, gender, age, location, organisation, events, likes, eventRegisted
+        updateUser(user: UserInput!): User!
     }
 
     type User{
@@ -57,9 +57,9 @@ export default gql`
     }
 
     input UserInput{
-        email:String!
-        password:String!
-        name:String!
+        email:String
+        password:String
+        name:String
         avatar:String
         bio:String
         gender: GenderType

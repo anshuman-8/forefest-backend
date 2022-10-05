@@ -83,12 +83,13 @@ export default {
             if (user) {
                 throw new ApolloError("User already exists");
             }
-            if(avatar===null){
-                avatar=`//https://robohash.org/${email}`
-            }
-
+            
             user = new User(args.user);
 
+            if(avatar===null){
+                user.avatar=`https://robohash.org/${email}?gravatar=yes`
+            }
+            console.log(user)
             const salt = await genSaltSync(10);
             user.password = await hash(password, salt);
 
@@ -109,6 +110,19 @@ export default {
             }
             
         },
+
+        updateUser: async (parent, args, { User, user, isAuth }, info) => {
+            try{
+                if(!isAuth || user===null){
+                    throw new ApolloError("User not logged in");
+                }
+                user=await User.findByIdAndUpdate(user.id,args.user,{new:true})
+                return user;
+
+            }catch(err){
+                throw new ApolloError(err);
+            }
+        }
 
     }
 };
