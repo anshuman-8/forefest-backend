@@ -1,6 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
-import { PORT, DB, mode } from "./config";
+import { DB, mode } from "./config";
 import { ApolloServer } from "apollo-server-express";
 import { success, error } from "consola";
 import AuthMiddleware from "./middlewares/auth";
@@ -27,15 +27,15 @@ const startServer = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    success(`Connected to MongoDB at: ${DB}`);
+    // success(`Connected to MongoDB at: ${DB}`);
 
     await apolloServer.start();
 
     await apolloServer.applyMiddleware({ app });
 
-    app.listen({ port: PORT }, () =>
+    app.listen({ port: (process.env.PORT || 4000) }, () =>
       success({
-        message: `Server started at http://localhost:${PORT}`,
+        message: `Server started  `,// http://localhost:${PORT}`,
         badge: true,
       })
     );

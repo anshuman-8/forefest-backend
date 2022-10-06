@@ -89,7 +89,7 @@ export default {
             if(avatar===null){
                 user.avatar=`https://robohash.org/${email}?gravatar=yes`
             }
-            console.log(user)
+            // console.log(user)
             const salt = await genSaltSync(10);
             user.password = await hash(password, salt);
 
