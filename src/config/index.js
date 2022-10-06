@@ -5,7 +5,8 @@ const { parsed } = config();
 export const {
     PORT,
     MODE,
+    DB_URL,
     SECRET,
     mode= MODE === 'development',
-    DB="mongodb://localhost:27017/forefest",
+    DB=mode?"mongodb://localhost:27017/forefest":DB_URL,
 } = parsed;
