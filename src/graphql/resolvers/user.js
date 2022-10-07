@@ -1,7 +1,8 @@
-import { hash, genSaltSync, compare } from 'bcryptjs';
+import bcryptjs from "bcryptjs";
 import { ApolloError } from "apollo-server-express";
-import { issueToken, serializeUser } from '../../functions';
-import {userLoginValidator,userRegisterValidator} from '../../validator';
+import { issueToken, serializeUser } from '../../functions/index.js';
+import {userLoginValidator,userRegisterValidator} from '../../validator/index.js';
+const  { hash, genSaltSync, compare } = bcryptjs;
 // import { User } from '../../models';
 
 export default {

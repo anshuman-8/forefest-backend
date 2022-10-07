@@ -1,6 +1,7 @@
-import { User } from '../models';
-import { SECRET } from "../config";
-import { verify } from "jsonwebtoken";
+import { User } from '../models/index.js';
+import { SECRET } from "../config/index.js";
+import verify  from "jsonwebtoken";
+
 
 const AuthMiddleware = async (req, res, next) => {
     // console.log("Auth header: ",req.headers.authorization,"\n\n")

@@ -1,5 +1,5 @@
-import user from './user';
-import event from './event';
+import user from './user.js';
+import event from './event.js';
 
 export default[
     user,

@@ -1,8 +1,8 @@
-import Event from './event';
-import User from './user';
-import Org from './org';
+import Event from './event.js';
+import User from './user.js';
+import Org from './org.js';
 // import Location from './location';
-import Comment from './comment';
+import Comment from './comment.js';
 
 export {
     Event,

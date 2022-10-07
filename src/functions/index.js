@@ -1,6 +1,6 @@
-import {sign} from 'jsonwebtoken';
-import { SECRET } from '../config/'; 
-import { pick } from 'lodash';
+import sign from 'jsonwebtoken';
+import { SECRET } from '../config/index.js'; 
+import pick  from 'lodash';
 
 export const issueToken=async (user)=> {
 

@@ -1,13 +1,15 @@
 import express from "express";
 import mongoose from "mongoose";
-import { DB, mode } from "./config";
+import { DB, mode } from "./config/index.js";
 import { ApolloServer } from "apollo-server-express";
-import { success, error } from "consola";
-import AuthMiddleware from "./middlewares/auth";
-import * as AppModels from "./models";
-import { resolvers, typeDefs } from "./graphql";
+import consola from "consola";
+import AuthMiddleware from "./middlewares/auth.js";
+import * as AppModels from "./models/index.js";
+import { resolvers, typeDefs } from "./graphql/index.js";
+const { success, error } = consola;
 
 const startServer = async () => {
+  const PORT = process.env.PORT || 4000;
   try {
     const app = express();
     app.use(AuthMiddleware);
@@ -15,6 +17,7 @@ const startServer = async () => {
     const apolloServer = new ApolloServer({
       typeDefs,
       resolvers,
+      persistedQueries: false,
       // schemaDirectives,
       playground: mode,
       context: ({ req }) => {
@@ -22,20 +25,30 @@ const startServer = async () => {
         return { req, isAuth, user, ...AppModels };
       },
     });
-
-    await mongoose.connect(DB, {
+    
+    await mongoose.connect((DB || process.env.DB_URL), {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      // serverApi: ServerApiVersion.v1
+    }, (err) => {
+      if (err) {
+        error(err);
+      } else {
+        success({
+              message: "Mongoose connected",
+              badge: true,
+            });
+      }
     });
-    // success(`Connected to MongoDB at: ${DB}`);
+
 
     await apolloServer.start();
 
     await apolloServer.applyMiddleware({ app });
 
-    app.listen({ port: (process.env.PORT || 4000) }, () =>
+    app.listen({ port: PORT }, () =>
       success({
-        message: `Server started  `,// http://localhost:${PORT}`,
+        message: `Server started at port ${PORT}`,
         badge: true,
       })
     );

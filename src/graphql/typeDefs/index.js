@@ -1,7 +1,7 @@
-import baseDefs from "./baseDef";
-import user from "./user";
-import org from "./org";
-import event from './event'
+import baseDefs from "./baseDef.js";
+import user from "./user.js";
+import org from "./org.js";
+import event from './event.js';
 // import comment from './comment'
 
 export default [
