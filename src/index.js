@@ -37,7 +37,7 @@ const startServer = async () => {
         success({
               message: "Mongoose connected",
               badge: true,
-            });
+        });
       }
     });
 

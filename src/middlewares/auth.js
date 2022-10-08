@@ -14,6 +14,10 @@ const AuthMiddleware = async (req, res, next) => {
         return next();
     };
 
+    // console.log({"Host: ":req.headers.host})
+
+    console.log({"Headers: ":req.headers})
+
     const token = authHeader.split(" ")[1];
 
     if (!token || token === "") {
